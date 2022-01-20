@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,8 +9,13 @@
 
     <title>my blog </title>
 </head>
-<body>
-<h1>hello  word </h1>
-<script src="app.js"></script>
+
+<article>
+    <h1><a href="/post">My Second Post</a></h1>
+
+    <p>helooo there this is an asrtivale ladies ansd gentelaman i want to wright is dow because i like it so much so
+        please dont be sad tis is so beautiful my man </p>
+</article>
+<a href="/" >go back</a>
 </body>
 </html>
