@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PostController;
+use App\Http\Middleware\EnsureTokenIsValid;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,4 +80,21 @@ Route::prefix("v1")->group(function () {
 
 });
 // TODO Route definition with  controller */
-Route::get("/post",[PostController::class,'index']) ;
+Route::get("/post", [PostController::class, 'index'])->middleware('ensureTokeIsValid');
+Route::get("/post", [PostController::class, 'index'])->middleware(EnsureTokenIsValid::class);
+// Excluding Middleware from a goup
+Route::prefix("v1")->middleware([EnsureTokenIsValid::class])->group(static function () {
+//route 1
+    Route::get('/user/{id}', static function ($id) {
+        return 'hello ' . $id;
+    })->whereUuid('id')
+        ->excludedMiddleware([EnsureTokenIsValid::class]);
+
+    // route 2 :
+    // excluding the middleware ensuretoke is valid
+    Route::get('/user/{name}', static function ($name) {
+        return "this" . $name;
+    })->whereAlphaNumeric('name')
+        ->withoutMiddleware([EnsureTokenIsValid::class]);
+
+});
